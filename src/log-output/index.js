@@ -25,6 +25,12 @@ app.get('/status', (req, res) => {
 });
 
 
+app.get('/ping', (req, res) => {
+  res.json({
+    message: 'pong'
+  });
+});
+
 logUUIDWithTimestamp();
 
 setInterval(logUUIDWithTimestamp, 5000);
