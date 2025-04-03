@@ -63,11 +63,11 @@ jobs:
       - name: Use right image
         shell: bash
         run: |
-          cd src/${{ env.PROJECT1 }} && kustomize edit set image PROJECT/IMAGE=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT1 }}:${{ github.sha }}
-          cd ../../src/${{ env.PROJECT3 }} && kustomize edit set image PROJECT/IMAGE=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:${{ github.sha }}
+          kustomize edit set image PROJECT/LOG-OUTPUT=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT1 }}:${{ github.sha }}
+          kustomize edit set image PROJECT/PING-PONG=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:${{ github.sha }}
 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'src/'
+          add: 'kustomization.yaml'
           message: "[bot] New version released ${{ github.sha }} for ArgoCD"

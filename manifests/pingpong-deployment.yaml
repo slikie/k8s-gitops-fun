@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: PROJECT/IMAGE
+          image: PROJECT/PING-PONG
           ports:
             - containerPort: 3000

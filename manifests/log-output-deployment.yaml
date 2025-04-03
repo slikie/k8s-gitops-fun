@@ -17,13 +17,13 @@ spec:
           emptyDir: {}
       containers:
         - name: writer
-          image: PROJECT/IMAGE
+          image: PROJECT/LOG-OUTPUT
           command: ["node", "reader-writer.js", "writer"]
           volumeMounts:
             - name: log-output-data
               mountPath: /data
         - name: reader
-          image: PROJECT/IMAGE
+          image: PROJECT/LOG-OUTPUT
           command: ["node", "reader-writer.js", "reader"]
           volumeMounts:
             - name: log-output-data
