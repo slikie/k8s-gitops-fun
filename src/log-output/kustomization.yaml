@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - manifests/deployment.yaml
 - manifests/service.yaml
+- manifests/ingress.yaml
 images:
 - name: PROJECT/IMAGE
   newName: ghcr.io/slikie/log-output
