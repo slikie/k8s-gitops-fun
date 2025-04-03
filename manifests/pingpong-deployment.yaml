@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ping-pong
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: ping-pong
@@ -12,8 +12,15 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+        - name: log-output-data
+          persistentVolumeClaim:
+            claimName: logdata-claim
       containers:
         - name: ping-pong
           image: PROJECT/PING-PONG
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - name: log-output-data
+              mountPath: /data

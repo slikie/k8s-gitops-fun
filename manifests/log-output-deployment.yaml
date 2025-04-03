@@ -14,7 +14,8 @@ spec:
     spec:
       volumes:
         - name: log-output-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: logdata-claim
       containers:
         - name: writer
           image: PROJECT/LOG-OUTPUT
