@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: log-output
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: log-output
@@ -13,7 +13,17 @@ spec:
         app: log-output
     spec:
       containers:
-        - name: log-output
+        - name: writer
           image: PROJECT/IMAGE
+          command: ["node", "reader-writer.js", "writer"]
+          volumeMounts:
+            - name: log-output-data
+              mountPath: /data
+        - name: reader
+          image: PROJECT/IMAGE
+          command: ["node", "reader-writer.js", "reader"]
+          volumeMounts:
+            - name: log-output-data
+              mountPath: /data
           ports:
             - containerPort: 3000
