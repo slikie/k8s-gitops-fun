@@ -12,6 +12,9 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: log-output-data
+          emptyDir: {}
       containers:
         - name: writer
           image: PROJECT/IMAGE
