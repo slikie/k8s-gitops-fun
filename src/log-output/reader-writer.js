@@ -2,9 +2,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const express = require('express');
 
-//const FILE_PATH = "/data/timestamp.txt";
-// for local debug
-const FILE_PATH = "./timestamp.txt";
+const FILE_PATH = "/data/timestamp.txt";
 
 
 function generateHash(timestamp) {
@@ -31,6 +29,7 @@ function readTimestampFromFile() {
     	status: 'success'
   		};
   } catch (err) {
+    console.log(err)
     return null;
   }
 }
