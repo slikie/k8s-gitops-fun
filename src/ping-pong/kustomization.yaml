@@ -6,4 +6,4 @@ resources:
 images:
 - name: PROJECT/IMAGE
   newName: ghcr.io/slikie/ping-pong
-  newTag: 079c0d2aa5a830e0dee24372877f47f48ba7b6be
+  newTag: 2bea51decdd19190bf36295ae5b450df3ddc1954

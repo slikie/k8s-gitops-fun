@@ -7,4 +7,4 @@ resources:
 images:
 - name: PROJECT/IMAGE
   newName: ghcr.io/slikie/log-output
-  newTag: e7771682399fb748d4b521bcedf7d725af5158bf
+  newTag: 2bea51decdd19190bf36295ae5b450df3ddc1954
