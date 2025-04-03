@@ -11,6 +11,7 @@ on:
 env:
   PROJECT1: log-output
   PROJECT2: project-curd
+  PROJECT3: ping-pong
 
 jobs:
   build-and-push:
@@ -48,13 +49,22 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT2 }}:${{ github.sha }}, ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT2 }}:latest
 
+      - name: Build and push ${{ env.PROJECT3 }}
+        uses: docker/build-push-action@v3
+        with:
+          context: src/${{ env.PROJECT3 }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:${{ github.sha }}, ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:latest
+
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2
 
       - name: Use right image
         shell: bash
         run: |
-          cd src/${{ env.PROJECT1 }} && kustomize edit set image PROJECT/IMAGE=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT1 }}:${{ github.sha }} 
+          cd src/${{ env.PROJECT1 }} && kustomize edit set image PROJECT/IMAGE=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT1 }}:${{ github.sha }}
+          cd src/${{ env.PROJECT3 }} && kustomize edit set image PROJECT/IMAGE=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:${{ github.sha }}
 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
