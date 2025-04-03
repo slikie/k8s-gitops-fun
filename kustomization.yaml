@@ -13,7 +13,7 @@ resources:
 images:
 - name: PROJECT/LOG-OUTPUT
   newName: ghcr.io/slikie/log-output
-  newTag: 1818f86f675ce574aab574ed9786232054bb4d6d
+  newTag: de236d677b5a99bb23d0bee3acc10a4d39a0c5cf
 - name: PROJECT/PING-PONG
   newName: ghcr.io/slikie/ping-pong
-  newTag: 1818f86f675ce574aab574ed9786232054bb4d6d
+  newTag: de236d677b5a99bb23d0bee3acc10a4d39a0c5cf
