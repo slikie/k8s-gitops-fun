@@ -4,17 +4,15 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 23224;
-const IMAGE_DIR = path.join(__dirname, 'images');
+const PORT = process.env.PORT || 3000;
+const IMAGE_DIR = "/app/images/"
 const METADATA_FILE = path.join(IMAGE_DIR, 'image_metadata.json');
 
-// Function to get current hour
 function getCurrentHour() {
   const now = new Date();
   return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}`;
 }
 
-// Function to read metadata
 async function readMetadata() {
   try {
     const metadataContent = await fs.readFile(METADATA_FILE, 'utf8');
@@ -24,13 +22,11 @@ async function readMetadata() {
   }
 }
 
-// Function to write metadata
 async function writeMetadata(metadata) {
   await fs.mkdir(IMAGE_DIR, { recursive: true });
   await fs.writeFile(METADATA_FILE, JSON.stringify(metadata, null, 2));
 }
 
-// Function to download image
 async function downloadImage(hour) {
   try {
     const response = await axios({
@@ -59,7 +55,6 @@ async function downloadImage(hour) {
   }
 }
 
-// Serve the image for current hour
 app.get('/pic', async (req, res) => {
   try {
     const currentHour = getCurrentHour();
@@ -88,12 +83,6 @@ app.get('/pic', async (req, res) => {
   }
 });
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`);
 });

@@ -3,9 +3,9 @@ kind: PersistentVolume
 metadata:
   name: example-pv
 spec:
-  storageClassName: small-example-pv # this is the name you are using later to claim this volume
+  storageClassName: local-path # this is the name you are using later to claim this volume
   capacity:
-    storage: 0.5Gi # Could be e.q. 500Gi. Small amount is to preserve space when testing locally
+    storage: 100Mi # Could be e.q. 500Gi. Small amount is to preserve space when testing locally
   volumeMode: Filesystem # This declares that it will be mounted into pods as a directory
   accessModes:
   - ReadWriteOnce
@@ -18,4 +18,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - k3d-k3s-default-agent-0
+          - k3d-k3s-default-agent-1
