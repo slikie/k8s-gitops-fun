@@ -55,6 +55,19 @@ async function downloadImage(hour) {
   }
 }
 
+app.get('/todo', (req, res) => {
+  const htmlPath = path.join(__dirname, 'index.html');
+  res.sendFile(htmlPath, (err) => {
+       if (err) {
+          console.error("Error sending HTML file:", err);
+          if (!res.headersSent) {
+               res.status(500).send('Error loading page.');
+          }
+      }
+  });
+});
+
+
 app.get('/pic', async (req, res) => {
   try {
     const currentHour = getCurrentHour();
@@ -86,3 +99,9 @@ app.get('/pic', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`);
 });
+
+// Add an input field. The input should not take todos that are over 140 characters long.
+
+
+// Add a send button. It does not have to send the todo yet.
+// Add a list of the existing todos with some hardcoded todos.

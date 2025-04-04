@@ -27,3 +27,10 @@ spec:
             name: project-curd-svc
             port:
               number: 80
+      - path: /todo
+        pathType: Prefix
+        backend:
+          service:
+            name: project-curd-svc
+            port:
+              number: 80
