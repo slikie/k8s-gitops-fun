@@ -20,3 +20,10 @@ spec:
             name: log-output-svc
             port:
               number: 80
+      - path: /pic
+        pathType: Prefix
+        backend:
+          service:
+            name: project-curd-svc
+            port:
+              number: 80

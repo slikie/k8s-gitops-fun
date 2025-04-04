@@ -9,7 +9,7 @@ WORKDIR /app
 # Create a new script file
 RUN npm i
 
-EXPOSE 23224
+EXPOSE 3000
 
 # Run the script when the container starts
 CMD [ "node", "index.js" ]

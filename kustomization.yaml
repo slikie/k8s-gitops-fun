@@ -9,6 +9,8 @@ resources:
 - manifests/log-output-deployment.yaml
 - manifests/log-output-service.yaml
 - manifests/ingress.yaml
+- manifests/curd-deployment.yaml
+- manifests/curd-svc.yaml
 
 images:
 - name: PROJECT/LOG-OUTPUT

@@ -64,6 +64,7 @@ jobs:
         shell: bash
         run: |
           kustomize edit set image PROJECT/LOG-OUTPUT=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT1 }}:${{ github.sha }}
+          kustomize edit set image PROJECT/PROJECT-CURD=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT2 }}:${{ github.sha }}
           kustomize edit set image PROJECT/PING-PONG=ghcr.io/${{ github.repository_owner }}/${{ env.PROJECT3 }}:${{ github.sha }}
 
       - name: commit kustomization.yaml to GitHub
