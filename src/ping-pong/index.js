@@ -15,6 +15,11 @@ app.get('/pingpong', (req, res) => {
   fs.writeFileSync(FILE_PATH, count.toString());
 });
 
+app.get('/pongs', (req, res) => {
+  // return current count with json
+  res.json({ count: count });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Access status at http://localhost:${PORT}/ping`);

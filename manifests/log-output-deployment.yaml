@@ -31,3 +31,6 @@ spec:
               mountPath: /data
           ports:
             - containerPort: 3000
+          env:
+            - name: PING_PONG_SERVICE_URL
+              value: http://ping-pong-svc/pongs

@@ -33,6 +33,12 @@ function readPingPongFromFile() {
   }
 }
 
+async function readPingPongFromUrl() {
+  const response = await fetch(process.env.PING_PONG_SERVICE_URL);
+  const data = await response.json();
+  return data;
+}
+
 function readTimestampFromFile() {
   try {
     data = fs.readFileSync(FILE_PATH_TIMESTAMP, 'utf8').trim();
@@ -55,15 +61,15 @@ if (process.argv[2] === 'writer') {
 } else {
   // Default as reader 
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT || 3000;
 
-  app.get('/', (req, res) => {
+  app.get('/', async (req, res) => {
     const timestampStr = readTimestampFromFile();
-    const pingpong = readPingPongFromFile();
+    const pingpong = await readPingPongFromUrl();
     if (timestampStr) {
       const responseObject = {
-        ...timestampStr,
-        pingpongs: pingpong
+        pingpongs: pingpong,
+        ...timestampStr
       };
       res.json(responseObject);
     } else {
