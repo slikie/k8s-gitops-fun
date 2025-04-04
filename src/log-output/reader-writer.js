@@ -2,12 +2,12 @@ const fs = require('fs');
 const crypto = require('crypto');
 const express = require('express');
 
-const FILE_PATH = "/data/timestamp.txt";
-
+const FILE_PATH_TIMESTAMP = "/data/timestamp.txt";
+const FILE_PATH_PINGPONG = "/data/pingpong.txt";
 
 function generateHash(timestamp) {
-    return crypto.createHash('sha256').update(timestamp).digest('hex')
-  }  
+  return crypto.createHash('sha256').update(timestamp).digest('hex')
+}
 
 function generateTimestamp() {
   const timestamp = new Date().toISOString();
@@ -17,17 +17,30 @@ function generateTimestamp() {
 }
 
 function writeTimestampToFile(timestampStr) {
-  fs.writeFileSync(FILE_PATH, timestampStr);
+  fs.writeFileSync(FILE_PATH_TIMESTAMP, timestampStr);
+}
+
+
+function readPingPongFromFile() {
+  try {
+    data = fs.readFileSync(FILE_PATH_PINGPONG, 'utf8').trim();
+    return {
+      data
+    };
+  } catch (err) {
+    console.log(err)
+    return null;
+  }
 }
 
 function readTimestampFromFile() {
   try {
-	data = fs.readFileSync(FILE_PATH, 'utf8').trim();
-  	return {
-    	timestamp: data.split(' - ')[0],
-	hash: data.split(' - ')[1],
-    	status: 'success'
-  		};
+    data = fs.readFileSync(FILE_PATH_TIMESTAMP, 'utf8').trim();
+    return {
+      timestamp: data.split(' - ')[0],
+      hash: data.split(' - ')[1],
+      status: 'success'
+    };
   } catch (err) {
     console.log(err)
     return null;
@@ -39,21 +52,26 @@ if (process.argv[2] === 'writer') {
     const timestampStr = generateTimestamp();
     writeTimestampToFile(timestampStr);
   }, 5000);
-} else { 
+} else {
   // Default as reader 
-    const app = express();
-    const PORT = 3000;
+  const app = express();
+  const PORT = 3000;
 
-    app.get('/', (req, res) => {
-        const timestampStr = readTimestampFromFile();
-        if (timestampStr) {
-		res.json(timestampStr)
-        } else {
-            res.send('Waiting for timestamp...');
-        }
-    });
+  app.get('/', (req, res) => {
+    const timestampStr = readTimestampFromFile();
+    const pingpong = readPingPongFromFile();
+    if (timestampStr) {
+      const responseObject = {
+        ...timestampStr,
+        pingpongs: pingpong
+      };
+      res.json(responseObject);
+    } else {
+      res.send('Waiting for timestamp...');
+    }
+  });
 
-    app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`);
-    });
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
